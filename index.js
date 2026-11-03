@@ -48,7 +48,7 @@ class QPlayerInstance extends InstanceBase {
 			time: '0',
 			duration: '0',
 		})
-		this.setPresetDefinitions(this.presets())
+		this.setPresetDefinitions([], this.presets())
 		await this.openPort()
 	}
 
@@ -188,6 +188,51 @@ class QPlayerInstance extends InstanceBase {
 					if (options.command === 'preload') args.push({ type: 'f', value: Number(options.time) })
 					this.send(`/qplayer/remote/${options.command}`, args)
 				},
+			},
+			discovery: {
+				name: 'Remote discovery',
+				options: [{ type: 'textinput', id: 'node', label: 'Node name', default: '' }],
+				callback: ({ options }) => this.send('/qplayer/remote/discovery', [{ type: 's', value: String(options.node) }]),
+			},
+			remote_show_block: {
+				name: 'Send remote show-file block',
+				options: [
+					{ type: 'textinput', id: 'target', label: 'Remote node name', default: '' },
+					{ type: 'number', id: 'block', label: 'Block number', default: 0, min: 0 },
+					{ type: 'number', id: 'total', label: 'Total blocks', default: 1, min: 1 },
+					{ type: 'textinput', id: 'payload', label: 'Block payload (base64)', default: '' },
+				],
+				callback: ({ options }) => {
+					const payload = Buffer.from(String(options.payload), 'base64')
+					this.send('/qplayer/remote/update-show', [
+						{ type: 's', value: String(options.target) },
+						{ type: 'i', value: Number(options.block) },
+						{ type: 'i', value: Number(options.total) },
+						{ type: 'b', value: payload },
+					])
+				},
+			},
+			remote_ack: {
+				name: 'Acknowledge remote show-file block',
+				options: [
+					{ type: 'textinput', id: 'target', label: 'Remote node name', default: '' },
+					{ type: 'number', id: 'block', label: 'Block number (-1 = complete)', default: 0 },
+				],
+				callback: ({ options }) => this.send('/qplayer/remote/update-show-ack', [
+					{ type: 's', value: String(options.target) },
+					{ type: 'i', value: Number(options.block) },
+				]),
+			},
+			remote_nack: {
+				name: 'Reject remote show-file block',
+				options: [
+					{ type: 'textinput', id: 'target', label: 'Remote node name', default: '' },
+					{ type: 'number', id: 'block', label: 'Block number', default: 0, min: 0 },
+				],
+				callback: ({ options }) => this.send('/qplayer/remote/update-show-nack', [
+					{ type: 's', value: String(options.target) },
+					{ type: 'i', value: Number(options.block) },
+				]),
 			},
 			raw: {
 				name: 'Send raw OSC message',

@@ -11,16 +11,23 @@
     "type": "git",
     "url": "https://github.com/shueja/companion-module-qplayer.git"
   },
-  "keywords": ["bitfocus", "companion", "qplayer", "osc"],
+  "keywords": [
+    "bitfocus",
+    "companion",
+    "qplayer",
+    "osc"
+  ],
   "author": "shueja",
   "license": "MIT",
   "dependencies": {
     "@companion-module/base": "^2.2.2",
-    "osc": "^2.4.5"
+    "osc": "^2.4.5",
+    "ws": "8.22.1"
   },
-  "dependencies": {
-    "@companion-module/base": "^2.2.2",
-    "osc": "^2.4.5"
+  "overrides": {
+    "osc": {
+      "ws": "8.22.1"
+    }
   },
   "devDependencies": {
     "@types/node": "^26.6.6",

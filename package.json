@@ -1,0 +1,29 @@
+{
+  "name": "companion-module-qplayer",
+  "version": "1.0.0",
+  "description": "Bitfocus Companion module for QPlayer over OSC",
+  "main": "index.js",
+  "scripts": {
+    "lint": "node --check index.js",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shueja/companion-module-qplayer.git"
+  },
+  "keywords": ["bitfocus", "companion", "qplayer", "osc"],
+  "author": "shueja",
+  "license": "MIT",
+  "dependencies": {
+    "@companion-module/base": "^2.2.2",
+    "osc": "^2.4.5"
+  },
+  "dependencies": {
+    "@companion-module/base": "^2.2.2",
+    "osc": "^2.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}

@@ -29,6 +29,38 @@ Feedback and variables are updated from
 `/qplayer/remote/fb/cue-status`. The module also provides connection status
 feedback and ready-made transport presets.
 
+## Presets
+
+The **QPlayer** preset category includes buttons for:
+
+- **GO** — go the selected cue
+- **STOP** — stop all cues
+- **PAUSE** — pause all cues
+- **▲** — select the previous cue
+- **▼** — select the next cue
+
+These presets are starting points; their actions can be edited after adding
+them to a Companion button.
+
+## Feedbacks
+
+- **OSC connected** — active while the local OSC listener is running.
+- **Cue state** — active when the selected cue ID and state match the latest
+  status received from QPlayer. Available states are `Ready`, `Playing`,
+  `Paused`, and `Stopped`.
+
+## Variables
+
+The following variables are populated from QPlayer cue-status feedback:
+
+| Variable | Description |
+| --- | --- |
+| `connection` | `Connected`, `Disconnected`, or the latest connection error |
+| `cue` | Last reported cue ID |
+| `state` | Last reported cue state |
+| `time` | Last reported playback time, in seconds |
+| `duration` | Last reported cue duration, in seconds |
+
 ## Development
 
 ```sh
